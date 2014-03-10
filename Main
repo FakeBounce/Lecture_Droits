@@ -1,0 +1,239 @@
+package Projet;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) {
+		String menu = null;
+		String menu2 = null;
+
+		do {
+			do {
+				System.out.println();
+				System.out.println();
+				System.out.println("---Menu gestion des droits---");
+				System.out.println("1- Afficher les droits d'une personne");
+				System.out.println("2- Afficher un droit pour chaque personne");
+				menu = Clavier.lireString();
+			} while (!(menu.equalsIgnoreCase("1"))
+					&& !(menu.equalsIgnoreCase("2")));
+
+			if (menu.equalsIgnoreCase("1")) {
+				do {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Quel est le niveau de la personne?");
+					System.out.println("1- Administrateur");
+					System.out.println("2- Medecin");
+					System.out.println("3- RH");
+					System.out.println("4- Comptabilite");
+					System.out.println("5- Consultant");
+					System.out.println("6- Personnel");
+					System.out.println("7- Retour");
+					menu2 = Clavier.lireString();
+				} while (!(menu2.equalsIgnoreCase("1"))
+						&& !(menu2.equalsIgnoreCase("2"))
+						&& !(menu2.equalsIgnoreCase("3"))
+						&& !(menu2.equalsIgnoreCase("4"))
+						&& !(menu2.equalsIgnoreCase("5"))
+						&& !(menu2.equalsIgnoreCase("6"))
+						&& !(menu2.equalsIgnoreCase("7")));
+
+				if (menu2.equalsIgnoreCase("1")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Administrateur:");
+					afficher_prop("administrateur");
+
+				}
+				if (menu2.equalsIgnoreCase("2")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Medecin:");
+					afficher_prop("medecin");
+				}
+				if (menu2.equalsIgnoreCase("3")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Ressources Humaines:");
+					afficher_prop("rh");
+				}
+				if (menu2.equalsIgnoreCase("4")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Comptabilité:");
+					afficher_prop("comptabilite");
+				}
+				if (menu2.equalsIgnoreCase("5")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Consultant:");
+					afficher_prop("consultant");
+				}
+				if (menu2.equalsIgnoreCase("6")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Personnel:");
+					afficher_prop("personnel");
+				}
+
+			}
+
+			if (menu.equalsIgnoreCase("2")) {
+				do {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Quel est le droit a afficher?");
+					System.out.println("1- Base de données");
+					System.out.println("2- Accès aux fichiers rh");
+					System.out.println("3- Accès aux fichiers juridiques");
+					System.out.println("4- Création fichier médical");
+					System.out.println("5- Consultation fichier médical");
+					System.out.println("6- Suppression fichier médical");
+					System.out.println("7- Accès aux fichiers comptablité");
+					System.out.println("8- Accès aux fichiers du personnel");
+					System.out.println("9- Retour");
+					menu2 = Clavier.lireString();
+				} while (!(menu2.equalsIgnoreCase("1"))
+						&& !(menu2.equalsIgnoreCase("2"))
+						&& !(menu2.equalsIgnoreCase("3"))
+						&& !(menu2.equalsIgnoreCase("4"))
+						&& !(menu2.equalsIgnoreCase("5"))
+						&& !(menu2.equalsIgnoreCase("6"))
+						&& !(menu2.equalsIgnoreCase("7"))
+						&& !(menu2.equalsIgnoreCase("8"))
+						&& !(menu2.equalsIgnoreCase("9")));
+
+				if (menu2.equalsIgnoreCase("1")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Accès a la base de données?");
+					afficher_cle("base_de_donnees");
+				}
+				if (menu2.equalsIgnoreCase("2")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Accès aux fichiers rh?");
+					afficher_cle("fichier_rh");
+				}
+				if (menu2.equalsIgnoreCase("3")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Accès aux fichiers juridiques?");
+					afficher_cle("fichier_juridique");
+				}
+				if (menu2.equalsIgnoreCase("4")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Peut créer un fichier médical?");
+					afficher_cle("creation_fichier_medical");
+				}
+				if (menu2.equalsIgnoreCase("5")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Peut consulter un fichier médical?");
+					afficher_cle("consulter_fichier_medical");
+				}
+				if (menu2.equalsIgnoreCase("6")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Peut supprimer un fichier médical?");
+					afficher_cle("suppression_fichier_medical");
+				}
+				if (menu2.equalsIgnoreCase("7")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out
+							.println("Accès aux fichiers de la comptabilité?");
+					afficher_cle("fichier_comptabilite");
+				}
+				if (menu2.equalsIgnoreCase("8")) {
+					System.out.println("---Menu gestion des droits---");
+					System.out.println("Accès aux fichiers du personnel?");
+					afficher_cle("fichier_personnel");
+				}
+			}
+			menu = "oui";
+		} while (menu.equalsIgnoreCase("Oui")); // Pour relancer le
+												// programme
+
+	};
+
+	public static void afficher_prop(String prop) {
+		String valeurini = null;
+		ProfileReader ini = null;
+		FileInputStream gestion_droits = null;
+		try {
+			ini = new ProfileReader();
+			gestion_droits = new FileInputStream("./gestion_droits.ini");
+		} catch (FileNotFoundException fe) {
+			fe.printStackTrace();
+		}
+
+		{
+			try {
+				ProfileReader.load(gestion_droits);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					gestion_droits.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			valeurini = ini.getProperty(prop, "base_de_donnees");
+			System.out.println("Accès a la base de données: " + valeurini);
+			valeurini = ini.getProperty(prop, "fichier_rh");
+			System.out.println("Accès au fichier des ressources humaines: "
+					+ valeurini);
+			valeurini = ini.getProperty(prop, "fichier_juridique");
+			System.out.println("Accès au fichier du domaine juridique: "
+					+ valeurini);
+			valeurini = ini.getProperty(prop, "creation_fichier_medical");
+			System.out.println("Création d'un fichier médical: " + valeurini);
+			valeurini = ini.getProperty(prop, "consulter_fichier_medical");
+			System.out.println("Consultation d'un fichier médical: "
+					+ valeurini);
+			valeurini = ini.getProperty(prop, "suppression_fichier_medical");
+			System.out
+					.println("Suppression d'un fichier médical: " + valeurini);
+			valeurini = ini.getProperty(prop, "fichier_comptabilite");
+			System.out.println("Accès au fichier de la comptabilité: "
+					+ valeurini);
+			valeurini = ini.getProperty(prop, "fichier_personnel");
+			System.out.println("Accès au fichier du personnel: " + valeurini);
+
+		}
+	}
+
+	public static void afficher_cle(String cle) {
+		String valeurini = null;
+		ProfileReader ini = null;
+		FileInputStream gestion_droits = null;
+		try {
+			ini = new ProfileReader();
+			gestion_droits = new FileInputStream("./gestion_droits.ini");
+		} catch (FileNotFoundException fe) {
+			fe.printStackTrace();
+		}
+
+		{
+			try {
+				ProfileReader.load(gestion_droits);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				try {
+					gestion_droits.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			valeurini = ini.getProperty("administrateur", cle);
+			System.out.println("Administrateur: " + valeurini);
+			valeurini = ini.getProperty("rh", cle);
+			System.out.println("Ressources humaines: " + valeurini);
+			valeurini = ini.getProperty("juridique", cle);
+			System.out.println("Juridique: " + valeurini);
+			valeurini = ini.getProperty("medecin", cle);
+			System.out.println("Medecin: " + valeurini);
+			valeurini = ini.getProperty("comptabilite", cle);
+			System.out.println("Comptabilité: " + valeurini);
+			valeurini = ini.getProperty("personnel", cle);
+			System.out.println("Personnel: " + valeurini);
+
+		}
+	}
+}
